@@ -166,20 +166,26 @@ func (c *Conn) Close() error {
 // DialStreamParams specifies the parameters to the
 // StreamService.Dial method.
 type DialStreamParams struct {
-	ContentType        string
-	Metadata           string
-	FilterProfanity    bool
-	RemoveDisfluencies bool
-	CustomVocabularyID string
+	ContentType         string
+	Metadata            string
+	FilterProfanity     bool
+	RemoveDisfluencies  bool
+	CustomVocabularyID  string
+	Transcriber         string
+	EnableSpeakerSwitch bool
+	Priority            string
 }
 
 type dialStreamParams struct {
-	ContentType        string `url:"content_type"`
-	Metadata           string `url:"metadata,omitempty"`
-	RemoveDisfluencies bool   `url:"remove_disfluencies,omitempty"`
-	FilterProfanity    bool   `url:"filter_profanity"`
-	CustomVocabularyID string `url:"custom_vocabulary_id"`
-	AccessToken        string `url:"access_token"`
+	ContentType         string `url:"content_type"`
+	Metadata            string `url:"metadata,omitempty"`
+	RemoveDisfluencies  bool   `url:"remove_disfluencies,omitempty"`
+	FilterProfanity     bool   `url:"filter_profanity"`
+	CustomVocabularyID  string `url:"custom_vocabulary_id"`
+	AccessToken         string `url:"access_token"`
+	Transcriber         string `url:"transcriber"`
+	EnableSpeakerSwitch bool   `url:"enable_speaker_switch"`
+	Priority            string `url:"priority"`
 }
 
 // Dial dials a WebSocket request to the Rev.ai Streaming api.
@@ -268,12 +274,15 @@ func (s *StreamService) streamURL(params *DialStreamParams) (*url.URL, error) {
 	rel := &url.URL{Scheme: "wss", Path: "/speechtotext/v1/stream", Host: s.client.BaseURL.Host}
 
 	p := &dialStreamParams{
-		AccessToken:        s.client.APIKey,
-		ContentType:        params.ContentType,
-		Metadata:           params.Metadata,
-		FilterProfanity:    params.FilterProfanity,
-		RemoveDisfluencies: params.RemoveDisfluencies,
-		CustomVocabularyID: params.CustomVocabularyID,
+		AccessToken:         s.client.APIKey,
+		ContentType:         params.ContentType,
+		Metadata:            params.Metadata,
+		FilterProfanity:     params.FilterProfanity,
+		RemoveDisfluencies:  params.RemoveDisfluencies,
+		CustomVocabularyID:  params.CustomVocabularyID,
+		Transcriber:         params.Transcriber,
+		EnableSpeakerSwitch: params.EnableSpeakerSwitch,
+		Priority:            params.Priority,
 	}
 
 	v, err := query.Values(p)
