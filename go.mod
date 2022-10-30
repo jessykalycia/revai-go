@@ -1,4 +1,4 @@
-module github.com/threeaccents/revai-go
+module github.com/jessykalycia/revai-go
 
 go 1.14
 
