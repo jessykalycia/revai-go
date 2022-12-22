@@ -98,10 +98,11 @@ type StreamService service
 
 // StreamMessage represents a rev.ai websocket stream message.
 type StreamMessage struct {
-	Type     string    `json:"type"`
-	Ts       float64   `json:"ts"`
-	EndTs    float64   `json:"end_ts"`
-	Elements []Element `json:"elements"`
+	Type      string    `json:"type"`
+	Ts        float64   `json:"ts"`
+	EndTs     float64   `json:"end_ts"`
+	SpeakerId int       `json:"speaker_id"`
+	Elements  []Element `json:"elements"`
 }
 
 // Conn represents a websocket connection to the Rev.ai Api.
