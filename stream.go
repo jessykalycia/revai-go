@@ -101,7 +101,7 @@ type StreamMessage struct {
 	Type      string    `json:"type"`
 	Ts        float64   `json:"ts"`
 	EndTs     float64   `json:"end_ts"`
-	SpeakerId int       `json:"speaker_id"`
+	SpeakerId string    `json:"speaker_id"`
 	Elements  []Element `json:"elements"`
 }
 
